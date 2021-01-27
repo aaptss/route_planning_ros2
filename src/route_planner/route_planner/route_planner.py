@@ -5,7 +5,10 @@ from nav_msgs.msg import OccupancyGrid, Path
 from geometry_msgs.msg import PoseStamped
 
 
-class PathPlanner(Node):
+class PathPlannerNode(Node):
+# TODO: make it a server 
+# # i should not because the assignement is to publish in topic
+# # however, making this node a server is more comprehensive
     def __init__(self):
         super().__init__("path_planner") 
 
@@ -36,7 +39,7 @@ class PathPlanner(Node):
 def main(args=None):
     rclpy.init(args=args)
     
-    node = (PathPlanner)
+    node = (PathPlannerNode)
     
     rclpy.spin(node)
     rclpy.shutdown()
