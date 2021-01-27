@@ -5,8 +5,10 @@ from nav_msgs.msg import OccupancyGrid, Path
 from geometry_msgs.msg import PoseStamped
 
 
-class PathPlanner:
+class PathPlanner(Node):
     def __init__(self):
+        super().__init__("path_planner") 
+
         self.start = None
         self.end = None
         self.map = None
@@ -26,3 +28,18 @@ class PathPlanner:
 
     def is_ready_to_construct(self):
         return self.map is not None and self.start is not None and self.goal is not None
+
+    def is_able_to_construct(self):
+        # TODO: check if start and end points are in one region (both or none are encircled)
+        return True
+
+def main(args=None):
+    rclpy.init(args=args)
+    
+    node = (PathPlanner)
+    
+    rclpy.spin(node)
+    rclpy.shutdown()
+
+if __name__== "__main__":
+    main()
