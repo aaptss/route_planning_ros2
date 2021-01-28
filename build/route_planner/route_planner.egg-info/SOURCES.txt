@@ -11,9 +11,10 @@ setup.py
 resource/route_planner
 route_planner/__init__.py
 route_planner/euler_from_q.py
+route_planner/path_planner.py
 route_planner/robot_state.py
-route_planner/route_planner.py
 route_planner/terminal_pts_fetcher.py
+route_planner/user.py
 test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py

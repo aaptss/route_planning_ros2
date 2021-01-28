@@ -56,4 +56,7 @@ List of assets used to complete the task:
 >>>two closest stamps in the Path msg may occur only with 0.01 s delimeter
 3. the robot is not omnidirectional
 >>>In order to navigate correctly, there should be a yaw angle, with (x,y) and the timestamp
-
+4. Robot's state at any given time consist of these parameters:  
+   * (x, y)
+   * phi, yaw angle
+   * width 

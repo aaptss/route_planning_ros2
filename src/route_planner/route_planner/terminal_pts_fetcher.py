@@ -2,6 +2,7 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
+from nav_msgs.msg import OccupancyGrid
 
 class PintFetcherNode(Node):
     def __init__(self):
@@ -61,7 +62,7 @@ class PintFetcherNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     
-    node = (PintFetcherNode)
+    node = PintFetcherNode()
     
     rclpy.spin(node)
     rclpy.shutdown()

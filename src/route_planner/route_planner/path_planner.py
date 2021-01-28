@@ -39,7 +39,7 @@ class PathPlannerNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     
-    node = (PathPlannerNode)
+    node = PathPlannerNode()
     
     rclpy.spin(node)
     rclpy.shutdown()

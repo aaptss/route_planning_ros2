@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            "npc_with_quest = route_planner.terminal_pts_fetcher:main"
-            "path_planner = route_planner.path_planner:main"
+            "npc_with_quest = route_planner.terminal_pts_fetcher:main",
+            "path_planner = route_planner.path_planner:main",
             "user = route_planner.user:main"
         ],
     },

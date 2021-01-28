@@ -1,0 +1,22 @@
+[0.075s] Invoking command in '/home/rosubuntu/ws_ros2/build/route_finder_launcher': AMENT_PREFIX_PATH=/home/rosubuntu/ws_ros2/install/route_planner:/home/rosubuntu/ws_ros2/install/route_finder_launcher:/opt/ros/foxy CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rosubuntu/ws_ros2/install/route_planner:/opt/ros/foxy /usr/bin/cmake --build /home/rosubuntu/ws_ros2/build/route_finder_launcher -- -j1 -l1
+[0.225s] Invoked command in '/home/rosubuntu/ws_ros2/build/route_finder_launcher' returned '0': AMENT_PREFIX_PATH=/home/rosubuntu/ws_ros2/install/route_planner:/home/rosubuntu/ws_ros2/install/route_finder_launcher:/opt/ros/foxy CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rosubuntu/ws_ros2/install/route_planner:/opt/ros/foxy /usr/bin/cmake --build /home/rosubuntu/ws_ros2/build/route_finder_launcher -- -j1 -l1
+[0.310s] Invoking command in '/home/rosubuntu/ws_ros2/build/route_finder_launcher': AMENT_PREFIX_PATH=/home/rosubuntu/ws_ros2/install/route_planner:/home/rosubuntu/ws_ros2/install/route_finder_launcher:/opt/ros/foxy CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rosubuntu/ws_ros2/install/route_planner:/opt/ros/foxy /usr/bin/cmake --install /home/rosubuntu/ws_ros2/build/route_finder_launcher
+[0.331s] -- Install configuration: ""
+[0.333s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/launch
+[0.335s] -- Installing: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/launch/jb_assigned.launch.py
+[0.337s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/ament_index/resource_index/package_run_dependencies/route_finder_launcher
+[0.337s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/ament_index/resource_index/parent_prefix_path/route_finder_launcher
+[0.337s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/ament_prefix_path.sh
+[0.339s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/ament_prefix_path.dsv
+[0.339s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/path.sh
+[0.340s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/path.dsv
+[0.340s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.bash
+[0.340s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.sh
+[0.342s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.zsh
+[0.342s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.dsv
+[0.342s] -- Installing: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/package.dsv
+[0.342s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/ament_index/resource_index/packages/route_finder_launcher
+[0.344s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/cmake/route_finder_launcherConfig.cmake
+[0.344s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/cmake/route_finder_launcherConfig-version.cmake
+[0.344s] -- Up-to-date: /home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/package.xml
+[0.363s] Invoked command in '/home/rosubuntu/ws_ros2/build/route_finder_launcher' returned '0': AMENT_PREFIX_PATH=/home/rosubuntu/ws_ros2/install/route_planner:/home/rosubuntu/ws_ros2/install/route_finder_launcher:/opt/ros/foxy CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/rosubuntu/ws_ros2/install/route_planner:/opt/ros/foxy /usr/bin/cmake --install /home/rosubuntu/ws_ros2/build/route_finder_launcher

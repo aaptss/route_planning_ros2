@@ -1,0 +1,16 @@
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/launch/jb_assigned.launch.py
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/ament_index/resource_index/package_run_dependencies/route_finder_launcher
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/ament_index/resource_index/parent_prefix_path/route_finder_launcher
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/ament_prefix_path.sh
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/ament_prefix_path.dsv
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/path.sh
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/environment/path.dsv
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.bash
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.sh
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.zsh
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/local_setup.dsv
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/package.dsv
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/ament_index/resource_index/packages/route_finder_launcher
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/cmake/route_finder_launcherConfig.cmake
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/cmake/route_finder_launcherConfig-version.cmake
+/home/rosubuntu/ws_ros2/install/route_finder_launcher/share/route_finder_launcher/package.xml

@@ -2,10 +2,11 @@
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
+from nav_msgs.msg import OccupancyGrid
 
-class PointFetch(Node):
+class PintFetcherNode(Node):
     def __init__(self):
-        super().__init__("start")
+        super().__init__("npc_with_quest") # the NPC gives the quest so you know the start and the end points of the journey
 
         self.x_start = None
         self.y_start = None
@@ -38,7 +39,9 @@ class PointFetch(Node):
         print("Your input is (X, Y) = (" + str(self.x_end)+", " + str(self.y_end) + " \r\n")
         
         # TODO: check againts the map if the points are valid
-        ##TODO: connect the node to the map server or service 
+        ##TODO: connect the node to the map server (request     )
+        # TODO: code callback functions. the'll check if points are ok (in white on the map)
+
         
     def publish_start(self):
         start_pt = PoseStamped()
@@ -59,7 +62,7 @@ class PointFetch(Node):
 def main(args=None):
     rclpy.init(args=args)
     
-    node = ()
+    node = PintFetcherNode()
     
     rclpy.spin(node)
     rclpy.shutdown()

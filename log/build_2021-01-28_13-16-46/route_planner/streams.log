@@ -1,0 +1,23 @@
+[0.513s] Invoking command in '/home/rosubuntu/ws_ros2/src/route_planner': PYTHONPATH=/home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/route_planner build --build-base /home/rosubuntu/ws_ros2/build/route_planner/build install --prefix /home/rosubuntu/ws_ros2/install/route_planner --record /home/rosubuntu/ws_ros2/build/route_planner/install.log --single-version-externally-managed
+[0.821s] running egg_info
+[0.823s] writing ../../build/route_planner/route_planner.egg-info/PKG-INFO
+[0.829s] writing dependency_links to ../../build/route_planner/route_planner.egg-info/dependency_links.txt
+[0.833s] writing entry points to ../../build/route_planner/route_planner.egg-info/entry_points.txt
+[0.837s] writing requirements to ../../build/route_planner/route_planner.egg-info/requires.txt
+[0.843s] writing top-level names to ../../build/route_planner/route_planner.egg-info/top_level.txt
+[0.892s] reading manifest file '../../build/route_planner/route_planner.egg-info/SOURCES.txt'
+[0.897s] writing manifest file '../../build/route_planner/route_planner.egg-info/SOURCES.txt'
+[0.903s] running build
+[0.904s] running build_py
+[0.905s] running install
+[0.907s] running install_lib
+[0.912s] running install_data
+[0.914s] running install_egg_info
+[0.918s] removing '/home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner-0.0.0-py3.8.egg-info' (and everything under it)
+[0.921s] Copying ../../build/route_planner/route_planner.egg-info to /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner-0.0.0-py3.8.egg-info
+[0.924s] running install_scripts
+[0.957s] Installing npc_with_quest script to /home/rosubuntu/ws_ros2/install/route_planner/lib/route_planner
+[0.959s] Installing path_planner script to /home/rosubuntu/ws_ros2/install/route_planner/lib/route_planner
+[0.961s] Installing user script to /home/rosubuntu/ws_ros2/install/route_planner/lib/route_planner
+[0.962s] writing list of installed files to '/home/rosubuntu/ws_ros2/build/route_planner/install.log'
+[1.044s] Invoked command in '/home/rosubuntu/ws_ros2/src/route_planner' returned '0': PYTHONPATH=/home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/route_planner build --build-base /home/rosubuntu/ws_ros2/build/route_planner/build install --prefix /home/rosubuntu/ws_ros2/install/route_planner --record /home/rosubuntu/ws_ros2/build/route_planner/install.log --single-version-externally-managed

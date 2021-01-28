@@ -1,0 +1,31 @@
+running egg_info
+writing ../../build/route_planner/route_planner.egg-info/PKG-INFO
+writing dependency_links to ../../build/route_planner/route_planner.egg-info/dependency_links.txt
+writing entry points to ../../build/route_planner/route_planner.egg-info/entry_points.txt
+writing requirements to ../../build/route_planner/route_planner.egg-info/requires.txt
+writing top-level names to ../../build/route_planner/route_planner.egg-info/top_level.txt
+reading manifest file '../../build/route_planner/route_planner.egg-info/SOURCES.txt'
+writing manifest file '../../build/route_planner/route_planner.egg-info/SOURCES.txt'
+running build
+running build_py
+copying route_planner/user.py -> /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner
+copying route_planner/terminal_pts_fetcher.py -> /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner
+copying route_planner/route_planner.py -> /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner
+copying route_planner/robot_state.py -> /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner
+running install
+running install_lib
+copying /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner/user.py -> /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner
+copying /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner/terminal_pts_fetcher.py -> /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner
+copying /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner/route_planner.py -> /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner
+copying /home/rosubuntu/ws_ros2/build/route_planner/build/lib/route_planner/robot_state.py -> /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner
+byte-compiling /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner/user.py to user.cpython-38.pyc
+byte-compiling /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner/terminal_pts_fetcher.py to terminal_pts_fetcher.cpython-38.pyc
+byte-compiling /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner/route_planner.py to route_planner.cpython-38.pyc
+byte-compiling /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner/robot_state.py to robot_state.cpython-38.pyc
+running install_data
+running install_egg_info
+removing '/home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/route_planner/route_planner.egg-info to /home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner-0.0.0-py3.8.egg-info
+running install_scripts
+Installing npc_with_quest = route_planner.terminal_pts_fetcher:mainpath_planner = route_planner.path_planner:mainuser script to /home/rosubuntu/ws_ros2/install/route_planner/lib/route_planner
+writing list of installed files to '/home/rosubuntu/ws_ros2/build/route_planner/install.log'
