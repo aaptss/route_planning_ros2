@@ -1,5 +1,0 @@
-  File "/home/rosubuntu/ws_ros2/install/route_planner/lib/python3.8/site-packages/route_planner/user.py", line 16
-    def new_path_cb()
-                    ^
-SyntaxError: invalid syntax
-

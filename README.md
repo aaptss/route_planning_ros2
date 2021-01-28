@@ -60,3 +60,11 @@ List of assets used to complete the task:
    * (x, y)
    * phi, yaw angle
    * width 
+
+# How to use 
+
+Terminal 1: 
+```
+$ cd ~/ws_ros2
+$ ros2 run nav2_map_server map_server ./src/route_planner/test_map/test.yaml
+```

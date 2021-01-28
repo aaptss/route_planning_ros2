@@ -29,6 +29,7 @@ def generate_launch_description():
         parameters=[{'yaml_filename': map_dir}]
     )
 
-    ld.add_action(npc_with_quest_node)
-    ld.add_action(path_planner_node)
+    # ld.add_action(npc_with_quest_node)
+    # ld.add_action(path_planner_node)
+    ld.add_action(map_node)
     return ld
