@@ -22,12 +22,13 @@ class MapHostNode(Node):
             OccupancyGrid, 
             "map",
             1)
-        self.map_timer_ = self.create_timer(10, self.publish_map)
+        self.map_timer_ = self.create_timer(3, self.publish_map) # publish once in 3 secs 
         self.get_logger().info("map publisher node is running")
 
     def publish_map(self):
         msg = self.parse_map_from_img()
         self.map_publisher_.publish(msg)
+        self.get_logger().info("map sent")
 
     def parse_yaml(self):
         yamloc = self.folder + self.mapname + ".yaml"
@@ -41,11 +42,17 @@ class MapHostNode(Node):
 
         imgloc = self.folder + self.yml['image']
         img_np_data = cv2.imread(imgloc, 0) # load 1 channel, white-gray-black
-        img_np_data = (img_np_data / np.uint8(2**8 - 1))*100 # map from 0..255 to 0..100
-        img_np_data = img_np_data.astype('int8') # cast to int
+        p = (255 - img_np_data) / 255.0
+        p[p > self.yml['occupied_thresh']] = 100
+        p[p < self.yml['free_thresh']] = 0
+        p[np.logical_and(p >= self.yml['free_thresh'],
+                         p <= self.yml['occupied_thresh'])] = -1
+        p = p.astype('int8')
+        data = np.empty(0, dtype = 'int8')
+        for i in range (0, p.shape[0]):
+            data = np.concatenate([data, p[i,:]])
         
-        grid.data = img_np_data.ravel().tolist()
-
+        grid.data = data.tolist()
         grid.info.resolution = self.yml['resolution']
         grid.info.height = img_np_data.shape[0]
         grid.info.width = img_np_data.shape[1]
