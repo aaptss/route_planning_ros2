@@ -27,7 +27,7 @@ class PintFetcherNode(Node):
              self.new_map_cb, 
              1)
 
-        self.get_logger().info("This node polls for input of start point and end point")
+        self.get_logger().info("This node asks for input of start point and end point")
 
     def fetch_points(self):
         self.x_start = input("Please enter the starting X coordinate: ")
@@ -36,7 +36,8 @@ class PintFetcherNode(Node):
         
         self.x_end = input("Please enter the terminal X coordinate: ")
         self.y_end = input("Please enter the terminal Y coordinate: ")
-        print("Your input is (X, Y) = (" + str(self.x_end)+", " + str(self.y_end) + " \r\n")
+        
+        self.get_logger().info("Your input is (X, Y) = (" + str(self.x_end)+", " + str(self.y_end) + " \r\n")
         
         # TODO: check againts the map if the points are valid
         ##TODO: connect the node to the map server (request     )

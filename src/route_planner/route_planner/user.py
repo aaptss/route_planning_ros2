@@ -11,7 +11,7 @@ class UserNode(Node):
         self.path_subscriber_ = self.create_subscription(
             Path, "end",
             self.new_path_cb, 1)
-        self.get_logger().info("Start receiving the path")
+    self.get_logger().info("User node is running")
 
     def new_path_cb():
         poses = RoboState.get_new_state(msg.poses)
