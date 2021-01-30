@@ -1,4 +1,4 @@
-import math 
+import math
 import random
 
 class RRTGraph:
@@ -7,10 +7,10 @@ class RRTGraph:
         self.start = start
         self.end = end
         self.map = map
-        
+
         self.endVicinityRadius = 20 # pixels
-        
-        # the path 
+
+        # the path
         self.reachEndFlag = False
         self.path = []
 
@@ -73,19 +73,14 @@ class RRTGraph:
     def isPointValid(self, x, y):
         # TODO: check the coordinate of the point againts the map
         # if white, return True, else False
+        # TODO: make a util.py with this and use this method across the workspace to avoid copypase
         return False
 
     def isNodeInFreeSpace(self): #check if the node is in the whitespace
-        id = self.num_of_nodes() - 1
-        (x,y) = (self.x[id], self.y[id])
-        if self.isPointValid(x ,y):
-            return True
-        else:
-            self.remove_node(id)
-            return False
+        pss
 
     def isConnectionValid(self): # check if the connection between two points crosses any obsticles
-        discretizationPower = 255 # how much points th check the line 
+        discretizationPower = 255 # how much points th check the line
         for i in range (0, discretizationPower)
             u = i /() discretizationPower - 1)
             x = x1*u + x2*(1 - u)
@@ -97,7 +92,7 @@ class RRTGraph:
 
     def path_to_end(self):
         pass
-    
+
     def get_path_coordinates(self):
         pass
 
