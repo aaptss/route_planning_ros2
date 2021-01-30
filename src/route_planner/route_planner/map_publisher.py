@@ -14,8 +14,6 @@ class MapHostNode(Node):
     def __init__(self):
         super().__init__("map_publisher")
 
-        self.folder = "/home/rosubuntu//ws_ros2/src/route_planner/test_map/"
-        self.mapname = "test"
         self.frame_id = 0
         self.map = OccupancyGrid()
         self.map_publisher_ = self.create_publisher(
@@ -24,21 +22,17 @@ class MapHostNode(Node):
             1)
         self.map_timer_ = self.create_timer(3, self.publish_map) # publish once in 3 secs
         self.get_logger().info("map publisher node is running")
+        rs = RoboState()
 
     def publish_map(self):
         msg = self.configure_msg()
         self.map_publisher_.publish(msg)
         self.get_logger().info("map sent")
 
-    def parse_yaml(self):
-        yamloc = self.folder + self.mapname + ".yaml"
-        with open(yamloc) as file:
-            self.yml = yaml.load(file,Loader=yaml.FullLoader)
-
     def parse_and_configure_map(self):
-        self.parse_yaml()
+        self.yml = rs.parse_yaml(rs.folder + rs.mapname + ".yaml")
 
-        imgloc = self.folder + self.yml['image']
+        imgloc = rs.folder + self.yml['image']
         img_np_data = cv2.imread(imgloc, 0) # load 1 channel, white-gray-black
 
         p = (255 - img_np_data) / 255.0
@@ -62,7 +56,8 @@ class MapHostNode(Node):
 
         msg = OccupancyGrid()
         msg.header.frame_id = hex(self.frame_id)
-
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.info.map_load_time = self.get_clock().now().to_msg()
         msg.info.origin.position.x = self.yml['origin'][0]
         msg.info.origin.position.y = self.yml['origin'][1]
         msg.info.resolution = round(self.yml['resolution'],4)

@@ -18,6 +18,7 @@ class PintFetcherNode(Node):
         self.y_end = 0.0
         self.isMap = False
         self.noInputFlag = False
+        self.point_id = 0
 
         self.start_publisher_ = self.create_publisher(
             PoseStamped,
@@ -57,6 +58,7 @@ class PintFetcherNode(Node):
             self.isMap = False
 
         if self.arePointsOk():
+            self.point_id = self.point_id + 1
             self.publish_start()
             self.get_logger().info("start_pt(" + str(self.x_start)+", " + str(self.y_start) + ") published")
             self.publish_end()
@@ -71,6 +73,7 @@ class PintFetcherNode(Node):
             start_pt.pose.position.x = self.x_start
             start_pt.pose.position.y = self.y_start
         start_pt.pose.position.z = 0.1
+        start_pt.header.frame_id = hex(self.point_id)
         self.start_publisher_.publish(start_pt)
 
     def publish_end(self):
@@ -82,6 +85,7 @@ class PintFetcherNode(Node):
             end_pt.pose.position.x = self.x_end
             end_pt.pose.position.y = self.y_end
         end_pt.pose.position.z = 0.1
+        end_pt.header.frame_id = hex(self.point_id)
 
         self.end_publisher_.publish(end_pt)
 
@@ -114,15 +118,15 @@ class PintFetcherNode(Node):
             if ((ranstart[1] == 0) and(ranend[1] == 0)):
                 break
 
-        start_x_id = ranstart[0] % self.map.info.width
-        start_y_id = ranstart[0] // self.map.info.width
-        end_x_id =  ranend[0] % self.map.info.width
-        end_y_id = ranend[0] // self.map.info.width
+        start_x_id = ranstart[0] % self.map.info.width # pixel index by axis from 1D occupancy grid 
+        start_y_id = ranstart[0] // self.map.info.width # pixel index by axis from 1D occupancy grid 
+        end_x_id =  ranend[0] % self.map.info.width # pixel index by axis from 1D occupancy grid 
+        end_y_id = ranend[0] // self.map.info.width # pixel index by axis from 1D occupancy grid 
 
-        self.x_start = start_x_id * self.map.info.resolution + self.map.info.origin.position.x
-        self.y_start = start_y_id * self.map.info.resolution + self.map.info.origin.position.y
-        self.x_end = end_x_id * self.map.info.resolution + self.map.info.origin.position.x
-        self.y_end = end_y_id * self.map.info.resolution + self.map.info.origin.position.y
+        self.x_start = start_x_id * self.map.info.resolution + self.map.info.origin.position.x # coordinate from pixel index
+        self.y_start = start_y_id * self.map.info.resolution + self.map.info.origin.position.y # coordinate from pixel index
+        self.x_end = end_x_id * self.map.info.resolution + self.map.info.origin.position.x # coordinate from pixel index
+        self.y_end = end_y_id * self.map.info.resolution + self.map.info.origin.position.y # coordinate from pixel index
         
         self.x_start = self.my_rounding(self.x_start,self.map.info.resolution)
         self.y_start = self.my_rounding(self.y_start,self.map.info.resolution)
