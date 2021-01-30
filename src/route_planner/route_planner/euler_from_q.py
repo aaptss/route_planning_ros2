@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import math 
+import math
 
 def eu_from_q(x,y,z,w):
     num0 = +2 * (w * x + y * z)
