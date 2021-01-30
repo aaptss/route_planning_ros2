@@ -4,16 +4,28 @@ from geometry_msgs.msg import Pose
 from geometry_msgs.msg import PoseStamped
 from route_planner.euler_from_q import eu_from_q
 import math
+import yaml
 
 
 class RoboState:
-    def __init__(self, x=0.0, y=0.0, phi=0.0, radius_mm=160):
+    def __init__(self, x=0.0, y=0.0, phi=0.0, radius_m=0.2,folder="/home/rosubuntu/ws_ros2/src/route_planner/test_map/",mapname="test"):
         self.x = x
         self.y = y
         self.phi = phi
-        self.radius_mm = radius_mm
+        self.radius_m = radius_m
+        self.folder = folder
+        self.mapname = mapname
+        
+        yamloc = self.folder + self.mapname + ".yaml"
+        self.yml = self.yaml_parse(yamloc)
+        self.resolution = round(self.yml['resolution'],4)
 
-    @staticmethod  # use of static method because we
+    def yaml_parse(self,location):
+        with open(location) as file:
+            yml = yaml.load(file,Loader=yaml.FullLoader)
+        return yml
+
+    @staticmethod  
     # need to parse external data and reshape it
     def get_new_state(pose):
         new_state = RoboState()
