@@ -62,8 +62,44 @@ List of assets used to complete the task:
    * width 
 
 # How to use 
+First, build and install with `colcon build` and `source ./ws2_ros/install/setup.bash`
 
-Terminal 1: 
+>Terminal 1: 
 ```
-$ cd ~/ws_ros2
+$ ros2 run route_planner map_publisher
 ```
+>Terminal 2: 
+```
+$ ros2 run route_planner npc_with_quest
+```
+valid points :
+(-8.2, -5.85)
+(-0.3, 0.6)
+(-6.4, -7.65)
+(-0.9, -7.6)
+(-1.1, -5.75)
+(-7.3, -7.7)
+(-4.3, -2.4)
+(-7.4, -6.8)
+(-0.6, -0.8)
+(-0.85, -0.15)
+(-5.75, -3.95)
+(-9.05, -7.6)
+(-8.9, -4.55)
+(-4.35, -3.6)
+(-9.1, -4.05)
+(-4.2, -1.65)
+(-3.65, -1.1)
+(-1.4, -0.75)
+(-4.55, -5.4)
+(-7.45, -8.55)
+(-7.25, -8.05)
+(-3.75, -5.0)
+(-0.15, -0.7)
+(-3.3, -1.75)
+(-3.3, 0.05)
+(-7.05, -4.15)
+(-7.85, -8.2)
+(-5.85, -8.45)
+(-3.15, -1.6)
+(-1.35, -2.7)
