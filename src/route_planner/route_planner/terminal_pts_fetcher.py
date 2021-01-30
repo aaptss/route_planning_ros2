@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 import rclpy
-from rclpy.node import Node
-from geometry_msgs.msg import PoseStamped
-from nav_msgs.msg import OccupancyGrid
 import random
-
+import numpy as np
+from rclpy.node import Node
+from nav_msgs.msg import OccupancyGrid
+from geometry_msgs.msg import PoseStamped
+from route_planner.robot_state import RoboState
 
 class PintFetcherNode(Node):
     def __init__(self):
@@ -19,6 +20,7 @@ class PintFetcherNode(Node):
         self.isMap = False
         self.noInputFlag = False
         self.point_id = 0
+        self.rs = RoboState()
 
         self.start_publisher_ = self.create_publisher(
             PoseStamped,
@@ -152,7 +154,11 @@ class PintFetcherNode(Node):
         x_pos = round(x/res, 1) - round(self.xmin/ res, 1)
         y_pos = round(y/res, 1) - round(self.ymin/ res, 1)
         n = int(y_pos) * self.map.info.width  + int(x_pos)
-        return  self.map.data[n] == 0
+        flag = np.empty((self.rs.footprint_px,self.rs.footprint_px),dtype=bool)
+        for row in range(self.rs.footprint_px):
+            for col in range(self.rs.footprint_px):
+                flag[row][col] = (self.map.data[n + col + int(self.map.info.width) * row] == 0)
+        return flag.all() # check if all the footprint of the robot is in the free space
 
     @staticmethod
     def my_rounding(a,b):
