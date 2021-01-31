@@ -10,6 +10,8 @@ class UserNode(Node):
     def __init__(self):
         super().__init__("user")
         self.rs = RoboParams()
+        self.path = None
+        self.path_header = None
         self.seq = 0
         self.isMapFlag = False
         self.start_subscriber_ = self.create_subscription(

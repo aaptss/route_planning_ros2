@@ -72,6 +72,24 @@ $ ros2 run route_planner map_publisher
 ```
 $ ros2 run route_planner npc_with_quest
 ```
+>Terminal 3: 
+```
+$ ros2 run route_planner path_planner
+```
+>Terminal 4: 
+```
+$ ros2 run route_planner user
+```
+After that, calling the RQT graph should look like this 
+![image](./rosgraph.png)
+
+some solutions (paths found) look like this:
+![slv1](./src/route_planner/test_map/path_0x1_test.pgm.png)
+or this
+![slv2](./src/route_planner/test_map/path_0x178_test.pgm)
+or this
+![slv3](./src/route_planner/test_map/path_0x2_test.pgm)
+
 valid points :
 (-8.2, -5.85)
 (-0.3, 0.6)
