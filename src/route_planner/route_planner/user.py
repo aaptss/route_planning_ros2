@@ -4,12 +4,12 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import OccupancyGrid, Path
-from route_planner.robot_state import RoboState
+from route_planner.robot_state import RoboParams
 
 class UserNode(Node):
     def __init__(self):
         super().__init__("user")
-        self.rs = RoboState()
+        self.rs = RoboParams()
         self.seq = 0
         self.isMapFlag = False
         self.start_subscriber_ = self.create_subscription(
@@ -45,7 +45,8 @@ class UserNode(Node):
         self.end = (msg.pose.position.x, msg.pose.position.y)
 
     def new_path_cb(self, msg):
-        self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.poses[0].position))
+        # self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.poses[0].position))
+        pass
 
     def draw_output(self):
         if ((self.map_header.frame_id == self.start_header.frame_id) 

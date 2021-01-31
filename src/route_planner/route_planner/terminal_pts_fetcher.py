@@ -5,7 +5,7 @@ import numpy as np
 from rclpy.node import Node
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import PoseStamped
-from route_planner.robot_state import RoboState
+from route_planner.robot_state import RoboParams
 
 class PintFetcherNode(Node):
     def __init__(self):
@@ -20,7 +20,7 @@ class PintFetcherNode(Node):
         self.noInputFlag = False
         self.isMapFlag = False
         self.isGoodPtArrayRdy = False
-        self.rs = RoboState()
+        self.rs = RoboParams()
         self.timer_ = self.create_timer(3, self.publish_both)
         self.start_publisher_ = self.create_publisher(
             PoseStamped,
@@ -39,6 +39,10 @@ class PintFetcherNode(Node):
     def new_map_cb(self, msg):
         self.isMapFlag = True
         self.map = msg
+        if not self.isGoodPtArrayRdy:
+            self.good_pts = [x==0 for x in self.map.data] # data(data)
+            self.good_pts = np.where(self.good_pts)[0]
+            self.isGoodPtArrayRdy = True
 
     def fetch_points(self):
         self.get_logger().info("If you want to turn off keybard input and take random pts, type in 1024")
@@ -53,15 +57,15 @@ class PintFetcherNode(Node):
 
         self.get_logger().info("Your end input is (X, Y) = (" +
             str(self.x_end)+", " + str(self.y_end) + ")\r\n")
-
+# 
         # x_start == 1024 means keyboard input turned off, the points gonna go random.
         if self.x_start == 1024.0:
             self.noInputFlag = True
         else:
-            self.x_start = self.my_rounding(self.x_start, self.map.info.resolution)
-            self.y_start = self.my_rounding(self.y_start, self.map.info.resolution)
-            self.x_end = self.my_rounding(self.x_end, self.map.info.resolution)
-            self.y_end = self.my_rounding(self.y_end, self.map.info.resolution)
+            self.x_start = self.round_to_map_res(self.x_start, self.map.info.resolution)
+            self.y_start = self.round_to_map_res(self.y_start, self.map.info.resolution)
+            self.x_end = self.round_to_map_res(self.x_end, self.map.info.resolution)
+            self.y_end = self.round_to_map_res(self.y_end, self.map.info.resolution)
 
     def get_random_points(self):
         # while True:
@@ -69,11 +73,8 @@ class PintFetcherNode(Node):
         #     ranend = random.choice(list(enumerate(self.map.data)))
         #     if ((ranstart[1] == 0) and(ranend[1] == 0)):
         #         break
-        if not self.isGoodPtArrayRdy:
-            good_points = [x==0 for x in self.map.data] # data(data)
-            good_points = np.where(good_points)[0]
-        ranstart = random.choice(good_points) # choose an index of a random free point 
-        ranend = random.choice(good_points)
+        ranstart = random.choice(self.good_pts) # choose an index of a random free point 
+        ranend = random.choice(self.good_pts)
 
         # start_x_id = ranstart[0] % self.map.info.width # use with while-do loop 
         # start_y_id = ranstart[0] // self.map.info.width # use with while-do loop 
@@ -89,10 +90,10 @@ class PintFetcherNode(Node):
         self.x_end = end_x_id * self.map.info.resolution + self.map.info.origin.position.x # coordinate from pixel index
         self.y_end = end_y_id * self.map.info.resolution + self.map.info.origin.position.y # coordinate from pixel index
         
-        self.x_start = self.my_rounding(self.x_start,self.map.info.resolution)
-        self.y_start = self.my_rounding(self.y_start,self.map.info.resolution)
-        self.x_end = self.my_rounding(self.x_end,self.map.info.resolution)
-        self.y_end = self.my_rounding(self.y_end,self.map.info.resolution)
+        self.x_start = self.round_to_map_res(self.x_start,self.map.info.resolution)
+        self.y_start = self.round_to_map_res(self.y_start,self.map.info.resolution)
+        self.x_end = self.round_to_map_res(self.x_end,self.map.info.resolution)
+        self.y_end = self.round_to_map_res(self.y_end,self.map.info.resolution)
 
     def isPointInBoundaries(self, x, y):
         self.xmin = self.map.info.origin.position.x
@@ -105,7 +106,7 @@ class PintFetcherNode(Node):
         and (y < (self.ymax - self.rs.diam)) 
         and (y > self.ymin))
 
-    def isPointFree(self, x, y):
+    def isPointFree(self, x, y): # same as in planners/rapid_exp_tree.py
         res = self.map.info.resolution
         x_pos = round(x/res, 1) - round(self.xmin/ res, 1)
         y_pos = round(y/res, 1) - round(self.ymin/ res, 1)
@@ -175,10 +176,9 @@ class PintFetcherNode(Node):
                 self.publish_end()
             else:
                 self.get_logger().info("points not okay, need new pair!")
-                pass
 
     @staticmethod
-    def my_rounding(a,b):
+    def round_to_map_res(a,b):
         # get clean coordinate value inline with map's resolution
         # inner round() to actually round the valuse
         # the second round is needed to get rid of float poind division imperfections

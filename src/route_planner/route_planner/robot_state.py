@@ -7,37 +7,36 @@ import math
 import yaml
 
 
-class RoboState:
-    def __init__(self, x=0.0, y=0.0, phi=0.0, diam=0.2,folder="/home/rosubuntu/ws_ros2/src/route_planner/test_map/",mapname="test"):
-        self.x = x
-        self.y = y
-        self.phi = phi
-        self.diam = diam
-        self.folder = folder
-        self.mapname = mapname
-        
-        yamloc = self.folder + self.mapname + ".yaml"
-        self.yml = self.yaml_parse(yamloc)
-        self.resolution = round(self.yml['resolution'],4)
-        self.footprint_px = int(self.diam / self.resolution)
+class RoboPose:
+    def __init__(self, x=0.0, y=0.0, phi=0.0):
+        self.id = None
+        self.x = None
+        self.y = None
+        self.phi = None
+        self.dt = None
 
-    def yaml_parse(self,location):
-        with open(location) as file:
-            yml = yaml.load(file,Loader=yaml.FullLoader)
-        return yml
-
-    @staticmethod  
-    # need to parse external data and reshape it
-    def get_new_state(pose):
-        new_state = RoboState()
-        new_state.x = pose.position.x
-        new_state.y = pose.position.y
+    def get_new_state(self, pose):
+        self.x = pose.position.x
+        self.y = pose.position.y
 
         qtrnion = (pose.orientation.x,
                    pose.orientation.y,
                    pose.orientation.z,
                    pose.orientation.w)
         (roll, pitch, yaw) = eu_from_q(qtrnion)
-        new_state.phi = yaw
+        self.phi = yaw
 
-        return new_state
+class RoboParams:
+    def __init__(self, diam=0.2,folder="/home/rosubuntu/ws_ros2/src/route_planner/test_map/",mapname="test"):
+        self.diam = diam
+        self.folder = folder
+        self.mapname = mapname
+        
+        yamloc = self.folder + self.mapname + ".yaml"
+        yml = self.yaml_parse(yamloc)
+        self.footprint_px = int(self.diam / round(yml['resolution'],4))
+
+    def yaml_parse(self,location):
+        with open(location) as file:
+            yml = yaml.load(file,Loader=yaml.FullLoader)
+        return yml

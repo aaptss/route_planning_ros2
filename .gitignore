@@ -13,3 +13,26 @@ log/
 ./log
 ./log/*
 
+src/route_planner/test_map/path_0x1_test.pgm.png
+src/route_planner/test_map/path_0x2_test.pgm.png
+src/route_planner/test_map/path_0x3_test.pgm.png
+src/route_planner/test_map/path_0x4_test.pgm.png
+src/route_planner/test_map/path_0x5_test.pgm.png
+src/route_planner/test_map/path_0x6_test.pgm.png
+src/route_planner/test_map/path_0x7_test.pgm.png
+src/route_planner/test_map/path_0x8_test.pgm.png
+src/route_planner/test_map/path_0x9_test.pgm.png
+src/route_planner/test_map/path_0x10_test.pgm.png
+src/route_planner/test_map/path_0x11_test.pgm.png
+src/route_planner/test_map/path_0x12_test.pgm.png
+src/route_planner/test_map/path_0x13_test.pgm.png
+src/route_planner/test_map/path_0x14_test.pgm.png
+src/route_planner/test_map/path_0x15_test.pgm.png
+src/route_planner/test_map/path_0x16_test.pgm.png
+src/route_planner/test_map/path_0xa_test.pgm.png
+src/route_planner/test_map/path_0xb_test.pgm.png
+src/route_planner/test_map/path_0xc_test.pgm.png
+src/route_planner/test_map/path_0xd_test.pgm.png
+src/route_planner/test_map/path_0xe_test.pgm.png
+src/route_planner/test_map/path_0xf_test.pgm.png
+src/route_planner/test_map/unique.png

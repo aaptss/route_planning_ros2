@@ -8,7 +8,7 @@ from rclpy.node import Node
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 from std_msgs.msg import Header
 from geometry_msgs.msg import Point, Quaternion, Pose
-from route_planner.robot_state import RoboState
+from route_planner.robot_state import RoboParams
 
 class MapHostNode(Node):
     def __init__(self):
@@ -20,7 +20,7 @@ class MapHostNode(Node):
             1)
         self.map_timer_ = self.create_timer(1, self.publish_map) # publish once in 3 secs
         self.get_logger().info("map publisher node is running")
-        self.rs = RoboState()
+        self.rs = RoboParams()
         self.mapIsParsed = False
 
     def publish_map(self):
