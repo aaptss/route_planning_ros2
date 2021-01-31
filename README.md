@@ -86,9 +86,13 @@ After that, calling the RQT graph should look like this
 
 some solutions (paths found) look like this:
 ![slv1](./src/route_planner/test_map/path_0x1_test.pgm.png)
+
 or this
-![slv2](./src/route_planner/test_map/path_0x178_test.pgm.png)
+
+![slv2](./src/route_planner/test_map/path_0x4_test.pgm.png)
+
 or this
+
 ![slv3](./src/route_planner/test_map/path_0x2_test.pgm.png)
 
 valid points :
