@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import math
+import numpy as np
 
 def eu_from_q(x,y,z,w):
     num0 = +2 * (w * x + y * z)
@@ -20,3 +21,10 @@ def eu_from_q(x,y,z,w):
     yaw = math.atan2(num2,den2)
 
     return roll, pitch, yaw
+
+def q_from_eu(roll,pitch,yaw):
+    qx = np.sin(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) - np.cos(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+    qy = np.cos(roll/2) * np.sin(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.cos(pitch/2) * np.sin(yaw/2)
+    qz = np.cos(roll/2) * np.cos(pitch/2) * np.sin(yaw/2) - np.sin(roll/2) * np.sin(pitch/2) * np.cos(yaw/2)
+    qw = np.cos(roll/2) * np.cos(pitch/2) * np.cos(yaw/2) + np.sin(roll/2) * np.sin(pitch/2) * np.sin(yaw/2)
+    return qx, qy, qz, qw

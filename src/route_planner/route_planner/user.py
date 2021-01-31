@@ -46,25 +46,29 @@ class UserNode(Node):
 
     def new_path_cb(self, msg):
         # self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.poses[0].position))
-        pass
+        self.path_header = msg.header
+        self.path = msg.poses
 
     def draw_output(self):
-        if ((self.map_header.frame_id == self.start_header.frame_id) 
-        and (self.map_header.frame_id == self.end_header.frame_id)):
-            if self.start_header.stamp == self.end_header.stamp:
-                self.seq += 1
-                start = self.start
-                end = self.end
-                map_meta = self.map_meta
-                yml = self.rs.yaml_parse(self.rs.folder + self.rs.mapname + ".yaml")
-                imgloc = self.rs.folder + yml['image']
-                canvas = cv2.imread(imgloc) # load 1 channel, white-gray-black
+        if self.path is not None:
+            if ((self.map_header.frame_id == self.start_header.frame_id) 
+            and (self.map_header.frame_id == self.end_header.frame_id)):
+                if self.start_header.stamp == self.end_header.stamp:
+                    self.seq += 1
+                    start = self.start
+                    end = self.end
+                    map_meta = self.map_meta
+                    yml = self.rs.yaml_parse(self.rs.folder + self.rs.mapname + ".yaml")
+                    imgloc = self.rs.folder + yml['image']
+                    canvas = cv2.imread(imgloc) # load 1 channel, white-gray-black
 
-                self.draw_a_point(start, canvas, map_meta, self.rs.footprint_px, [255, 0, 0])
-                self.draw_a_point(end, canvas, map_meta, self.rs.footprint_px, [0, 255, 0])
-
-                cv2.imwrite(self.rs.folder + "path_" + hex(self.seq) +"_" + self.map_header.frame_id + ".png", canvas)
-                self.get_logger().info("path_" + hex(self.seq) +".png saved")
+                    self.draw_a_point(start, canvas, map_meta, self.rs.footprint_px, [255, 0, 0])
+                    self.draw_a_point(end, canvas, map_meta, self.rs.footprint_px, [0, 255, 0])
+                    for i in range(1, len(self.path) - 1):
+                        # print(self.path[i])
+                        self.draw_a_point(self.path[i], canvas, map_meta, self.rs.footprint_px, [0, 0, 255])
+                    cv2.imwrite(self.rs.folder + "path_" + hex(self.seq) +"_" + self.map_header.frame_id + ".png", canvas)
+                    self.get_logger().info("fromPathPublisher_" + hex(self.seq) +".png saved")
 
     @staticmethod
     def draw_a_point(pt, canvas, params, pt_thickness, color):
