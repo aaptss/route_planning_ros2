@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 import rclpy
 from rclpy.node import Node
-from nav_msgs.msg import OccupancyGrid, Path
 from geometry_msgs.msg import PoseStamped
+from nav_msgs.msg import OccupancyGrid, Path
 from route_planner.robot_state import RoboState
+from route_planner.planners.rapid_exp_tree import RRTGraph
+from route_planner.planners.rapid_exp_tree import RRT_pathConstructor
+
 import cv2
 
 
@@ -14,14 +17,13 @@ class PathPlannerNode(Node):
     def __init__(self):
         super().__init__("path_planner")
 
-        self.start_id = None
         self.start = None
-        self.end_id = None
         self.end = None
-        self.map = None
-        rs = RoboState()
+        self.ocgrid = None
+        self.isMapFlag = False
+        self.rs = RoboState()
 
-        self.map_subscriber_ = self.create_subscription(
+        self.ocgrid_subscriber_ = self.create_subscription(
             OccupancyGrid, "map",
             self.new_map_cb, 1)
         self.start_subscriber_ = self.create_subscription(
@@ -34,37 +36,45 @@ class PathPlannerNode(Node):
             Path, 
             "path", 
             1)
-
         self.get_logger().info("Path planning node is up")
 
     def new_map_cb(self, msg):
-        self.get_logger().info(msg.header.frame_id)
-        self.ocgrid = msg.info
-        if self.isReadyToConstruct():
-            yml = rs.yaml_parse(rs.folder + rs.mapname + ".yaml")
-            imgloc = rs.folder + yml['image']
-            self.get_logger().info(imgloc)
-            map_image = cv2.imread(imgloc, 0) # load 1 channel, white-gray-black
-
+        self.get_logger().info("map " + msg.header.frame_id + " received")
+        self.map_header = msg.header
+        self.map_meta = msg.info
+        self.ocgrid = msg.data
+        self.isMapFlag = True
 
     def new_start_cb(self, msg):
-        self.get_logger().info(msg.header.frame_id + "   " + str(msg.pose.position))
-        self.start = msg.pose.position
+        self.get_logger().info(hex(msg.header.stamp) + "   " + str(msg.pose.position))
+        self.start_header = msg.header
+        self.start = (msg.pose.position.x, msg.pose.position.y)
 
     def new_end_cb(self, msg):
-        self.get_logger().info(msg.header.frame_id + "   " + str(msg.pose.position))
-        self.end = msg.pose.position
+        self.get_logger().info(hex(msg.header.stamp) + "   " + str(msg.pose.position))
+        self.end_header = msg.header
+        self.end = (msg.pose.position.x, msg.pose.position.y)
 
     def isReadyToConstruct(self):
-        if self.map is not None:
-            if self.start is not None and self.end is not None:
-                if self.start_id == self.end_id:
-                    return True
+        if self.isMapFlag:
+            if ((self.map_header.frame_id == self.start_header.frame_id)
+            and (self.map_header.frame_id == self.end_header.frame_id)):
+                return True
         return False
 
-    def isAbleToConstruct(self):
-        # TODO: check if start and end points are in one region (both or none are encircled)
-        return True
+    def call_algo(self):
+        if self.isReadyToConstruct():
+            pass
+
+    def configure_msg(self):
+        message = Path()
+        message.header = self.end_header
+        return message
+
+    def publish_path(self):
+        msg = self.configure_msg()
+        self.map_publisher_.publish(msg)
+        self.get_logger().info("path " + msg.header.stamp.nanosec + " is published")
 
 
 def main(args=None):
