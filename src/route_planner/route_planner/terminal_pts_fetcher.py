@@ -20,7 +20,6 @@ class PintFetcherNode(Node):
         self.noInputFlag = False
         self.isMapFlag = False
         self.isGoodPtArrayRdy = False
-        self.point_id = 0
         self.rs = RoboState()
         self.timer_ = self.create_timer(3, self.publish_both)
         self.start_publisher_ = self.create_publisher(
@@ -133,7 +132,8 @@ class PintFetcherNode(Node):
             start_pt.pose.position.x = self.x_start
             start_pt.pose.position.y = self.y_start
         start_pt.pose.position.z = 0.1
-        start_pt.header.frame_id = hex(self.point_id)
+        start_pt.header.frame_id = self.map.header.frame_id
+        start_pt.header.stamp = self.t
         self.start_publisher_.publish(start_pt)
         self.get_logger().info("start_pt(" + str(self.x_start)+", " + str(self.y_start) + ") published")
 
@@ -146,7 +146,8 @@ class PintFetcherNode(Node):
             end_pt.pose.position.x = self.x_end
             end_pt.pose.position.y = self.y_end
         end_pt.pose.position.z = 0.1
-        end_pt.header.frame_id = hex(self.point_id)
+        end_pt.header.frame_id = self.map.header.frame_id
+        end_pt.header.stamp = self.t
         self.end_publisher_.publish(end_pt)
         self.get_logger().info("end_pt(" + str(self.x_end)+", " + str(self.y_end) + ") published")
 
@@ -169,7 +170,7 @@ class PintFetcherNode(Node):
             if self.arePointsOk():
                 self.get_logger().info("points are ok!")
                 self.get_logger().info("prepping to publish!")
-                self.point_id = self.point_id + 1
+                self.t = self.get_clock().now().to_msg()
                 self.publish_start()
                 self.publish_end()
             else:

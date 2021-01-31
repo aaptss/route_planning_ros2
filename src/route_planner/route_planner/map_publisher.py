@@ -13,26 +13,25 @@ from route_planner.robot_state import RoboState
 class MapHostNode(Node):
     def __init__(self):
         super().__init__("map_publisher")
-
-        self.frame_id = 0
         self.map = OccupancyGrid()
         self.map_publisher_ = self.create_publisher(
             OccupancyGrid,
             "map",
             1)
-        self.map_timer_ = self.create_timer(3, self.publish_map) # publish once in 3 secs
+        self.map_timer_ = self.create_timer(1, self.publish_map) # publish once in 3 secs
         self.get_logger().info("map publisher node is running")
-        rs = RoboState()
+        self.rs = RoboState()
+        self.mapIsParsed = False
 
     def publish_map(self):
         msg = self.configure_msg()
         self.map_publisher_.publish(msg)
-        self.get_logger().info("map sent")
+        self.get_logger().info("map " + msg.header.frame_id + " is published")
 
     def parse_and_configure_map(self):
-        self.yml = rs.parse_yaml(rs.folder + rs.mapname + ".yaml")
+        self.yml = self.rs.yaml_parse(self.rs.folder + self.rs.mapname + ".yaml")
 
-        imgloc = rs.folder + self.yml['image']
+        imgloc = self.rs.folder + self.yml['image']
         img_np_data = cv2.imread(imgloc, 0) # load 1 channel, white-gray-black
 
         p = (255 - img_np_data) / 255.0
@@ -51,11 +50,11 @@ class MapHostNode(Node):
         return data
 
     def configure_msg(self):
-        data = self.parse_and_configure_map()
-        self.frame_id += 1
-
+        if not self.mapIsParsed: 
+            data = self.parse_and_configure_map()
+        
         msg = OccupancyGrid()
-        msg.header.frame_id = hex(self.frame_id)
+        msg.header.frame_id = self.yml['image']
         msg.header.stamp = self.get_clock().now().to_msg()
         msg.info.map_load_time = self.get_clock().now().to_msg()
         msg.info.origin.position.x = self.yml['origin'][0]

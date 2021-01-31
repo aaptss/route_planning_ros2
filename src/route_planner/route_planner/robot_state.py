@@ -8,17 +8,18 @@ import yaml
 
 
 class RoboState:
-    def __init__(self, x=0.0, y=0.0, phi=0.0, radius_m=0.2,folder="/home/rosubuntu/ws_ros2/src/route_planner/test_map/",mapname="test"):
+    def __init__(self, x=0.0, y=0.0, phi=0.0, diam=0.2,folder="/home/rosubuntu/ws_ros2/src/route_planner/test_map/",mapname="test"):
         self.x = x
         self.y = y
         self.phi = phi
-        self.radius_m = radius_m
+        self.diam = diam
         self.folder = folder
         self.mapname = mapname
         
         yamloc = self.folder + self.mapname + ".yaml"
         self.yml = self.yaml_parse(yamloc)
         self.resolution = round(self.yml['resolution'],4)
+        self.footprint_px = int(self.diam / self.resolution)
 
     def yaml_parse(self,location):
         with open(location) as file:
