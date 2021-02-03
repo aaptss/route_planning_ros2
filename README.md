@@ -61,7 +61,24 @@ List of assets used to complete the task:
    * phi, yaw angle
    * width 
 ## the algorithm 
-![algo](./image.png)
+The ideal version of the RRT i'd like to implement is described with [this scheme](./image.png)
+
+However, RRT implemented in [rapid_exp_tree.py](./src/route_planner/route_planner/rapid_exp_tree.py) is a little bit different as it does not check for an availability of  the path for two points (i.e. is one of them encircled).
+
+### tuning parameters
+the RRT implemented here relies on several parameters:
+- step size
+- max cap of iterations per path generation
+- bias rate (how many times
+
+These parameters should be found with optimization methods. However, a fine mix is: 3*robot_footprint, 5000 and 0.1.
+
+setting the max cap very high results in an enormous amount of time one needs to wait to get the solution (or no solutions), but it gives a better chance of finding one for two points on the opposite sides of the map.
+
+setting the bias rate very high results in the algorithm getting stuck in local point near the occupied region
+
+setting the step size very high results in "chess knight problem", when in order to get from one adjacent point to an another, robot need to take a detour.
+
 # How to use 
 First, build and install with `colcon build` and `source ./ws2_ros/install/setup.bash`
 
@@ -84,16 +101,7 @@ $ ros2 run route_planner user
 After that, calling the RQT graph should look like this 
 ![image](./rosgraph.png)
 
-some solutions (paths found) look like this:
-![slv1](./src/route_planner/test_map/path_0x1_test.pgm.png)
-
-or this
-
-![slv2](./src/route_planner/test_map/path_0x4_test.pgm.png)
-
-or this
-
-![slv3](./src/route_planner/test_map/path_0x2_test.pgm.png)
+some solutions (paths found) are available [here](./src/route_planner/test_map)
 
 valid points :
 (-8.2, -5.85)
