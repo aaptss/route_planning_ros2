@@ -60,7 +60,8 @@ List of assets used to complete the task:
    * (x, y)
    * phi, yaw angle
    * width 
-
+## the algorithm 
+![algo](./image.png)
 # How to use 
 First, build and install with `colcon build` and `source ./ws2_ros/install/setup.bash`
 
@@ -85,10 +86,14 @@ After that, calling the RQT graph should look like this
 
 some solutions (paths found) look like this:
 ![slv1](./src/route_planner/test_map/path_0x1_test.pgm.png)
+
 or this
-![slv2](./src/route_planner/test_map/path_0x178_test.pgm)
+
+![slv2](./src/route_planner/test_map/path_0x4_test.pgm.png)
+
 or this
-![slv3](./src/route_planner/test_map/path_0x2_test.pgm)
+
+![slv3](./src/route_planner/test_map/path_0x2_test.pgm.png)
 
 valid points :
 (-8.2, -5.85)
