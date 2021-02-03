@@ -69,8 +69,8 @@ class UserNode(Node):
                 color = [0, 255 - int(255*i/len(self.path)), int(255*i/len(self.path))]
                 pt = (self.path[i].pose.position.x, self.path[i].pose.position.y)
                 self.draw_a_point(pt, canvas, map_meta, self.rs.footprint_px, color)
-            cv2.imwrite(self.rs.folder + "geterated_len_" + str(len(self.path)) + "_id_" + self.map_header.frame_id + ".png", canvas)
-            self.get_logger().info("geterated_len_" + str(len(self.path)) + "_id_" + self.map_header.frame_id + ".png saved")
+            cv2.imwrite(self.rs.folder + "geterated_len_" + str(len(self.path)) + "_id_" + hex(self.path_header.stamp.nanosec) + ".png", canvas)
+            self.get_logger().info("geterated_len_" + str(len(self.path)) + "_id_" + hex(self.path_header.stamp.nanosec) + ".png saved")
 
     @staticmethod
     def draw_a_point(pt, canvas, params, pt_thickness, color):
