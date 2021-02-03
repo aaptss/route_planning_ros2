@@ -26,23 +26,22 @@ class UserNode(Node):
         self.path_subscriber_ = self.create_subscription(
             Path, "path",
             self.new_path_cb,1)
-        self.timer_ = self.create_timer(7, self.draw_output)
         self.get_logger().info("User node is running")
 
     def new_map_cb(self, msg):
-        self.get_logger().info("map " + msg.header.frame_id + " received")
+        # self.get_logger().info("map " + msg.header.frame_id + " received")
         self.map_header = msg.header
         self.map_meta = msg.info
         self.ocgrid = msg.data
         self.isMapFlag = True
 
     def new_start_cb(self, msg):
-        self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.pose.position))
+        # self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.pose.position))
         self.start_header = msg.header
         self.start = (msg.pose.position.x, msg.pose.position.y)
 
     def new_end_cb(self, msg):
-        self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.pose.position))
+        # self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.pose.position))
         self.end_header = msg.header
         self.end = (msg.pose.position.x, msg.pose.position.y)
 
@@ -50,27 +49,28 @@ class UserNode(Node):
         # self.get_logger().info(hex(msg.header.stamp.nanosec) + "   " + str(msg.poses[0].position))
         self.path_header = msg.header
         self.path = msg.poses
+        # self.get_logger().info(str(msg))
+        self.draw_output()
 
     def draw_output(self):
         if self.path is not None:
-            if ((self.map_header.frame_id == self.start_header.frame_id) 
-            and (self.map_header.frame_id == self.end_header.frame_id)):
-                if self.start_header.stamp == self.end_header.stamp:
-                    self.seq += 1
-                    start = self.start
-                    end = self.end
-                    map_meta = self.map_meta
-                    yml = self.rs.yaml_parse(self.rs.folder + self.rs.mapname + ".yaml")
-                    imgloc = self.rs.folder + yml['image']
-                    canvas = cv2.imread(imgloc) # load 1 channel, white-gray-black
+            self.seq += 1
+            start = self.start
+            end = self.end
+            map_meta = self.map_meta
+            yml = self.rs.yaml_parse(self.rs.folder + self.rs.mapname + ".yaml")
+            imgloc = self.rs.folder + yml['image']
+            canvas = cv2.imread(imgloc) # load 1 channel, white-gray-black
 
-                    self.draw_a_point(start, canvas, map_meta, self.rs.footprint_px, [255, 0, 0])
-                    self.draw_a_point(end, canvas, map_meta, self.rs.footprint_px, [0, 255, 0])
-                    for i in range(1, len(self.path) - 1):
-                        # print(self.path[i])
-                        self.draw_a_point(self.path[i], canvas, map_meta, self.rs.footprint_px, [0, 0, 255])
-                    cv2.imwrite(self.rs.folder + "path_" + hex(self.seq) +"_" + self.map_header.frame_id + ".png", canvas)
-                    self.get_logger().info("fromPathPublisher_" + hex(self.seq) +".png saved")
+            # self.draw_a_point(start, canvas, map_meta, self.rs.footprint_px, [255, 0, 0])
+            # self.draw_a_point(end, canvas, map_meta, self.rs.footprint_px, [0, 255, 0])
+            
+            for i in range(0, len(self.path)):
+                color = [0, 255 - int(255*i/len(self.path)), int(255*i/len(self.path))]
+                pt = (self.path[i].pose.position.x, self.path[i].pose.position.y)
+                self.draw_a_point(pt, canvas, map_meta, self.rs.footprint_px, color)
+            cv2.imwrite(self.rs.folder + "geterated_len_" + str(len(self.path)) + "_id_" + self.map_header.frame_id + ".png", canvas)
+            self.get_logger().info("geterated_len_" + str(len(self.path)) + "_id_" + self.map_header.frame_id + ".png saved")
 
     @staticmethod
     def draw_a_point(pt, canvas, params, pt_thickness, color):
