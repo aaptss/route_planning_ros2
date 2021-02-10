@@ -103,7 +103,12 @@ After that, calling the RQT graph should look like this
 
 some solutions (paths found) are available [here](./src/route_planner/test_map)
 
-valid points :
+# TODOs
+1. make messages in topics /start /end /path in line with each other, i.e. add a disambiguation that clarifies that particular /path message belongs to particular /start and /end
+2. in /path message, add sampling time for each pose, so the valocity of the robot would be clear. now, /path_msg.poses\[i\].stamp is empty. however, there should be stamps starting from 0 for poses\[0\] to an end time of the trip for poses\[end\]. all stamps should respect the discretization time of the robot. 
+
+
+### some valid points :
 (-8.2, -5.85)
 (-0.3, 0.6)
 (-6.4, -7.65)
